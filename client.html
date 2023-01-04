@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="js/swiper.min.css">
+    <script src="js/vue.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .nav{
+            width: 100%;
+            height: 80px;
+            overflow: hidden;
+            background-color: #191919;
+            color: #999;
+            line-height: 80px;
+        }
+        .nav .left{
+            width: 20%;
+        }
+        .nav .left img{
+            width: 100%;
+            margin-top: 20px;
+        }
+        .nav .center{
+            width: 50%;
+            padding:0 5%;
+            box-sizing: border-box;
+        }
+        .nav .center div{
+            float: left;
+            width: 20%;
+            text-align: center;
+        }
+        .nav .center div:first-child{
+            color: #fff;
+            background-color: rgba(255,255,255,.4);
+        }
+        .nav>div>div:hover{
+            color: #fff;
+        }
+        .nav .right{
+            width: 30%;
+            font-size: 14px;
+        }
+        .nav .right div{
+            float: left;
+            width: 33%;
+            text-align: center;
+        }
+        .nav>div{
+            float: left;
+        }
+        .download{
+            border:1px solid #999;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 30px;
+            margin-top: 25px;
+        }
+        .download:hover{
+            background-color: #ff8f00;
+            color: #000 !important;
+        }
+        .client-1{
+            background-image: url(image/client/0.jpg);
+            height: 1000px;
+            position: relative;
+        }
+        .client-1-logo1{
+            background-image: url(image/client/1.png);
+            width: 683px;
+            height: 670px;
+            position: absolute;
+            left: 10px;
+            bottom: -40px;
+        }
+        .client-1-logo2{
+            background-image: url(image/client/2.png);
+            width: 401px;
+            height: 456px;
+            position: absolute;
+            left: 9%;
+            top: 200px;
+            animation: logo1 ease 5s infinite ;
+        }
+        .client-1-logo3{
+            background-image: url(image/client/3.png);
+            width:216px;
+            height: 162px;
+            position: absolute;
+            left: -50px;
+            top: 400px;
+            animation: logo2 ease 5s infinite;
+        }
+        .client-1-logo4{
+            background-image: url(image/client/4.png);
+            width:161px;
+            height: 167px;
+            position: absolute;
+            left: 600px;
+            top: 700px;
+            animation: logo3 ease 5s infinite;
+        }
+        .client-1-text1{
+            background-image: url(image/client/6.png);
+            position: absolute;
+            width: 332px;
+            height: 23px;
+            top: 35%;
+            right: 17%;
+        }
+        .client-1-text2{
+            background-image: url(image/client/7.png);
+            position: absolute;
+            width: 415px;
+            height: 152px;
+            top: 40%;
+            right: 11%;
+        }
+        .client-1-buttonleft{
+            width: 256px;
+            height: 50px;
+            background:#ffc625;
+            font-size: 16px;
+            line-height: 50px;
+            text-align: center;
+            position: absolute;
+            top: 60%;
+            right: 22%;
+            border-radius: 20px;
+            color: #323232;
+        }
+        .client-1-buttonright{
+            width: 256px;
+            height: 50px;
+            background:#ffc625;
+            font-size: 16px;
+            line-height: 50px;
+            text-align: center;
+            position: absolute;
+            top: 60%;
+            right: 3%;
+            border-radius: 20px;
+            color: #323232;
+        }
+        .client-1-buttonleft:hover,.client-1-buttonright:hover{
+            background:#ffd626;
+            cursor: pointer;
+        }
+        .client-2{
+            background-image: url(image/client/8.jpg);
+            height: 900px;
+            position: relative;
+        }
+        .dh-o{
+            animation: touming ease 3s ;
+        }
+        .client-2-text1{
+            background-image: url(image/client/9.png);
+            position: absolute;
+            width: 310px;
+            height: 136px;
+            top: 28%;
+            left:8%;
+        }
+        .client-2-text2{
+            position: absolute;
+            width: 310px;
+            top: 47%;
+            left:8%;
+            font-size: 18px;
+            color: #a0a0a0;
+            letter-spacing: 10px;
+            margin-bottom: 82px;
+        }
+        .client-2-logo1{
+            position: absolute;
+            top: 57%;
+            left:8%;
+        }
+        .client-2-logo2{
+            position: absolute;
+            top: 57%;
+            left:17%;
+        }
+        .client-2-logo3{
+            position: absolute;
+            top: 57.5%;
+            left:26%;
+        }.client-2-logo1-text1{
+            position: absolute;
+            top: 63%;
+            left:7%;
+            color: #a0a0a0;
+        }
+        .client-2-logo2-text2{
+            position: absolute;
+            top: 63%;
+            left:16.5%;
+            color: #a0a0a0;
+        }
+        .client-2-logo3-text3{
+            position: absolute;
+            top: 63%;
+            left:25%;
+            color: #a0a0a0;
+        }
+        .client-2-logo4{
+            width: 881px;
+            position: absolute;
+            top: 20%;
+            right: 5%;
+        }
+        .client-2-logo4 img{
+            width: 881px;
+            box-shadow: 0 0 30px rgba(0,0,0,.5);
+        }
+        .client-2-logo5{
+            position: absolute;
+            bottom: -150px;
+            z-index: 111;
+        }
+        .client-3{
+            background-image: url(image/client/14.jpg);
+            height: 1000px;
+            position: relative;
+        }
+        .client-3-logo1{
+            position: absolute;
+            top: 16%;
+            left: 30%;
+        }
+        .client-3-text1{
+            color: #a0a0a0;
+            position: absolute;
+            top: 24%;
+            left: 35%;
+            letter-spacing: 5px;
+            font-size: 18px;
+        }
+        .client-3-logo2{
+            position: absolute;
+            top: 30%;
+            left: 8%;
+        }
+        .zi{position: absolute;top:1300px;left: 30%;;}
+        .pc1-a{animation: one ease 1s;}
+        .pc1-b{
+            opacity: 100%;
+        }
+        .bottom{
+            width: 100%;
+            height: 250px;
+            background: #191919;
+            color:rgba(255,255,255,.4);
+            position: relative;
+        }
+        .bottom img{
+            width: 50px;
+        }
+        .zzs{
+            position: absolute;
+            width: 1200px;
+            top: 50%;
+            left: 15%;
+            font-size: 12px;
+        }
+        .zzs>div{
+            float: left;
+            margin-right: 10px;
+            padding-right: 10px;
+            border-right: #8a8a8a 2px solid;
+        }
+        .font>div{
+            float: left;
+        }
+        .pc{
+            position: absolute;
+            top: 20%;
+            left: 20%;
+        }
+        .wb{
+            position: absolute;
+            top: 20%;
+            left: 40%;
+        }
+        .wx{
+            position: absolute;
+            top: 20%;
+            left: 60%;
+        }
+        .font img{
+            position: absolute;
+        }
+        .font img:hover{
+            cursor: pointer;
+        }
+        .bh{
+            position: absolute;
+            font-size: 12px;
+            left: 35%;
+            top: 60%;
+        }
+        .zzs div:hover{
+            cursor: pointer;
+            color: #909090;
+        }
+        .tip{
+            position: absolute;
+            font-size: 12px;
+            left: 45%;
+            top: 70%;
+        }
+        @keyframes logo1{
+            0%{top:200px}
+            50%{top: 300px;}
+            100%{top:200px}
+        }
+        @keyframes logo2{
+            0%{top:400px}
+            50%{top:500px}
+            100%{top:400px}
+        }
+        @keyframes logo3{
+            0%{top:700px}
+            50%{top: 800px}
+            100%{top:700px}
+        }
+        @keyframes touming{
+            0%{opacity: 0;}
+            100%{opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="nav">
+            <div class="left">
+                <img src="image/logo.png">
+            </div>
+            <div class="center">
+                <div>商店</div>
+                <div>客户端</div>
+                <div>移动端</div>
+                <div>已计划</div>
+                <div>帮助反馈</div>
+            </div>
+            <div class="right">
+                <div>开发者平台</div>
+                <div class="download">下载客户端</div>
+                <div>登录</div>
+            </div>    
+        </div>
+        <div class="client-1">
+            <div class="client-1-logo1">
+
+            </div>
+            <div class="client-1-logo2">
+
+            </div>
+            <div class="client-1-logo3">
+
+            </div>
+            <div class="client-1-logo4">
+
+            </div>
+            <div class="client-1-text1">
+
+            </div>
+            <div class="client-1-text2">
+                
+            </div>
+            <div class="client-1-buttonleft">
+                <span>下载PC版</span>
+            </div>
+            <div class="client-1-buttonright">
+                <span>下载移动端</span>
+            </div>
+        </div>
+        <div ref="content1" class="client-2" v-bind:style="{opacity:dh1?1:0}" v-bind:class="dh1?'dh-o':''">
+            <div class="client-2-text1">
+
+            </div>
+            <div class="client-2-text2">
+                <span>带你发现更大的游戏世界</span>
+            </div>
+            <div class="client-2-logo1">
+                <img src="image/client/10.png" style="width: 50px;">
+            </div>
+            <div class="client-2-logo1-text1">多维度推荐</div>
+            <div class="client-2-logo2">
+                <img src="image/client/11.png" style="width: 50px;">
+            </div>
+            <div class="client-2-logo2-text2">更多折扣</div>
+            <div class="client-2-logo3">
+                <img src="image/client/12.png" style="width: 40px;">
+            </div>
+            <div class="client-2-logo3-text3">自主退款</div>
+            <div class="client-2-logo4">
+                <img src="image/client/13.png">
+            </div>
+            <div class="client-2-logo5">
+                <img src="image/client/17.png" style="width: 200px;">
+            </div>
+        </div>
+        <div class="client-3">
+            <div class="client-3-logo1">
+                <img src="image/client/15.png">
+            </div>
+            <div class="client-3-text1">为你提供专业、全面、有趣的游戏资讯</div>
+            <div ref="content2" class="client-3-logo2"  v-bind:style="{opacity:dh1?1:0}" v-bind:class="dh1?'dh-o':''">
+                <img src="image/client/16.png">
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="font">
+                <div class="pc"><span>下载客户端:&nbsp;&nbsp;&nbsp;</span><img src="image/bottom/Windows.png"></div>
+                <div class="wb"><span>官方渠道:&nbsp;&nbsp;&nbsp;</span><img src="image/bottom/weibo.png"></div>
+                <div class="wx"><span>友情链接:&nbsp;&nbsp;&nbsp;</span><img src="image/bottom/weixin.png"></div>
+            </div>
+            
+            <div class="zzs">
+                <div>关于腾讯</div>
+                <div>About Tencent</div>
+                <div>服务条款</div>
+                <div>软件许可及服务协议</div>
+                <div>隐私保护指引</div>
+                <div>儿童隐私保护指引</div>
+                <div>侵权通知</div>
+                <div>广告服务</div>
+                <div>腾讯招聘</div>
+                <div>客服中心</div>
+                <div>网站导航</div>
+            </div>
+            <div class="bh">COPYRIGHT © 1998 – 2020 TENCENT. ALL RIGHTS RESERVED.</div>
+            <div class="tip">腾讯公司&nbsp;版权所有</div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:".app",
+            data(){
+                return{
+                    juli:0,
+                    dh1:false,
+                    juli2:0,
+                    dh2:false
+                }
+            },
+            methods:{
+                rollingheight:function(e){
+                    if(this.juli-500<= document.documentElement.scrollTop){
+                        this.dh1 = true
+                    }
+                  
+                },
+               
+            },
+            mounted(){
+                this.juli = this.$refs.content1.offsetTop
+                this.juli2 = this.$refs.content2.offsetTop
+                //document.documentElement.scrollTop滚动条的位置
+                //监听滚动条滚动的事件
+                window.addEventListener('scroll',this.rollingheight,true)
+            }
+        })
+    </script>
+</body>
+</html>

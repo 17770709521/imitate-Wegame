@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="js/swiper.min.css">
+    <script src="js/vue.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .item_img {
+            width: 100vw;
+            height: 28vw;
+            overflow: hidden;
+        }
+
+        .item_img img,
+        .item_img video {
+            width: 100%;
+            height: 100%;
+            ;
+        }
+
+        .swiper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swiper_title {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: rgba(15, 15, 35, .4);
+            color: #fff;
+            height: 100%;
+            width: 200px;
+            pointer-events: auto;
+        }
+
+        .swiper_title div {
+            height: 4vw;
+            line-height: 4vw;
+            padding-left: 20px;
+        }
+
+        .swiper_title>div:hover {
+            background-color: rgba(255, 255, 255, .5);
+        }
+
+        .height100 {
+            height: 100px;
+            line-height: 100px;
+        }
+
+        .content {
+            padding: 50px;
+            width: 90%;
+            box-sizing: border-box;
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .content_item {
+            width: 235px;
+            height: 366px;
+            position: relative;
+            background: #fff;
+            float: left;
+            margin-right: 30px;
+        }
+
+        .content_img {
+            position: absolute;
+            top: -20px;
+            left: 8px;
+        }
+
+        .content_box {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 0 8px;
+            background-color: #fff;
+            box-sizing: border-box;
+            z-index: 111;
+            line-height: 30px;
+            height: 90px;
+            overflow: hidden;
+            transition: all .3s linear;
+        }
+
+        .content_btn {
+            border-top: 1px solid #eee
+        }
+
+        .content_btn div {
+            float: left;
+            width: 50%;
+            box-sizing: border-box;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .content_btn div:first-child {
+            border-right: 1px solid #eee;
+        }
+
+        .content_item:hover .content_box {
+            height: 130px;
+        }
+
+        .content_p {
+            background-color: #fff;
+            position: absolute;
+            right: -255px;
+            z-index: 11111;
+            overflow: hidden;
+            width: 0;
+            transition: all 0s linear .5s;
+            text-align: center;
+        }
+
+        .content_swiper {
+            background-color: #fff;
+            text-align: center;
+            overflow: hidden;
+            width: 234px;
+            margin: 0 auto;
+        }
+
+        .content_swiper img {
+            width: 90%;
+        }
+
+        .content_item:hover .content_p {
+            width: 250px;
+            padding: 8px 0;
+        }
+
+        /* 轮播图滚动条样式 */
+        .swiper-container-horizontal>.swiper-scrollbar {
+            width: 35%;
+            left: 32.5%;
+            bottom: 2.5%;
+        }
+
+        .swiper-scrollbar-drag {
+            background-color: #ffca28
+        }
+        .swiper-button-next,.swiper-button-prev{
+            top:97%
+        }
+        .swiper-button-prev{
+            left: 30%;
+        }
+        .swiper-button-next{
+            right: 30%;
+        }
+        .swiper-button-next:after, .swiper-button-prev:after{
+            font-size: 20px;
+            font-weight: 900;
+            color: rgba(0,0,0,.4);
+        }
+        .nav{
+            width: 100%;
+            height: 80px;
+            overflow: hidden;
+            background-color: #191919;
+            color: #999;
+            line-height: 80px;
+        }
+        .nav .left{
+            width: 20%;
+        }
+        .nav .left img{
+            width: 100%;
+            margin-top: 20px;
+        }
+        .nav .center{
+            width: 50%;
+            padding:0 5%;
+            box-sizing: border-box;
+        }
+        .nav .center div{
+            float: left;
+            width: 20%;
+            text-align: center;
+        }
+        .nav .center div:first-child{
+            color: #fff;
+            background-color: rgba(255,255,255,.4);
+        }
+        .nav>div>div:hover{
+            color: #fff;
+        }
+        .nav .right{
+            width: 30%;
+            font-size: 14px;
+        }
+        .nav .right div{
+            float: left;
+            width: 33%;
+            text-align: center;
+        }
+        .nav>div{
+            float: left;
+        }
+        .download{
+            border:1px solid #999;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 30px;
+            margin-top: 25px;
+        }
+        .download:hover{
+            background-color: #ff8f00;
+            color: #000 !important;
+        }
+        .nav1{
+            height: 50px;
+            line-height: 50px;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .nav1-title{
+            margin: 20px;
+            margin-left: 130px;
+            font-weight: 1000px;
+            font-size: 30px;
+        }
+        .nav1 .left{margin-left: 300px;}
+        .nav1 .right{float: right;margin-right: 100px;}
+        .nav1 .left div{float: left;margin-right: 30px;}
+        .nav1 .left div:first-child span{
+            border-bottom: 2px solid  #ff8f00;
+            padding: 12px 0;
+        }
+        .nav1 .right div{
+            float: left;
+        }
+        .tanke{color:  #ff8f00;font-size: 14px;font-weight: bold;}
+        .input_div{border:1px solid #ff8f00;margin-left: 20px;
+        height: 30px;margin-top: 9px;position: relative;width: 200px;border-radius: 30px;overflow: hidden;}
+        .input_div input{border: none;outline: none;height: 30px;position: absolute;top:0;left: 0;width: 150px;padding-left: 10px;box-sizing: border-box;}
+        .input_div div{background: #ff8f00;position: absolute;right: 0;width: 50px;height: 30px;text-align: center;}
+        .input_div img{
+            vertical-align: super;
+        }
+        /* 排行榜样式 */
+        .phb-top{
+            width: 70%;
+            height: 80px;
+        }
+
+        .phb{
+            overflow: hidden;
+        }
+        .swiper-button-prev1{
+            position: absolute;
+            left: -50px;
+            top: 50%;
+            cursor: pointer;
+        }
+        .swiper-button-next1{
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            cursor: pointer;
+        }
+        .swiper-slide{
+            background-color: white;
+        }
+        .phb div{
+            float: left;
+            margin: 5px;
+        }
+        .phb-title{
+            width:100%;
+            color: black;
+            padding: 10px;
+            font-weight: 1000;
+        }
+        .phb-title1{
+            width: 40%;
+        }
+        .phb-price{
+            width: 40%;
+        }
+        .phb-num{
+            height: 70px;
+            line-height:70px;
+        }
+        .phb-game{
+            width: 100%;
+            border-bottom: 1px solid #e4e4e4;
+        }
+        .phb-game:hover{
+            cursor: pointer;
+            background-color: #f4f4f4;
+        }
+        .phb{
+            width: 1200px;
+        }
+        .phb-box{
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .cs{
+            position: relative;
+            color: white;
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .cs-title1{
+            position: absolute;
+            left: 3%;
+            top: 17%;
+            font-size: 36px;
+            font-weight: 1000;
+        }
+        .cs-title2{
+            position: absolute;
+            left: 3%;
+            top: 29%;
+            font-size: small;
+            width: 400px;
+        }
+        .cs-game-img{
+            position: absolute;
+            top: 10%;
+            width: 200px;
+        }
+        .game-text{
+            width: 300px;
+            height: 286.66px;
+            background: white;
+        }
+        .cs-img{
+            position: relative;
+        }
+        .cs-game{
+            position: absolute;
+            top:40%;
+            left: 3%;
+        }
+        .cs-game div{
+            float: left;
+            overflow: hidden;
+        }
+        .swiper-pagination1 .swiper-pagination-bullet,.swiper-pagination2 .swiper-pagination-bullet{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: transparent;
+            position: relative;
+            outline: none;
+        }
+        .swiper-pagination1{
+            position: absolute;
+            top: 0;
+            left: 10%;
+        }
+        .swiper-pagination1 .swiper-pagination-bullet::after,.swiper-pagination2 .swiper-pagination-bullet::after{
+            content: "";
+            width: 32px;
+            height: 4px;
+            background-color: #ffb300;
+            position: absolute;
+            bottom: 0;
+            left: 34px;
+            opacity: 0;
+            transition: all .2s ease;
+        }
+        .swiper-pagination1 .swiper-pagination-bullet-active::after,.swiper-pagination2 .swiper-pagination-bullet-active::after{
+            opacity: 1;
+        }
+        
+        .game-box{
+            float: left;
+        }
+        .game-box img{
+            transition: all .15s ease-out;
+        }
+        .cs-game1{
+            position: absolute;
+            left: 50%;
+            top: 40%;
+        }
+        .game1-text{
+            width: 250px;
+            height: 147px;
+            background: white;
+            position: absolute;
+            top: 97%;
+        }
+        .cs-game2{
+            position: absolute;
+            left: 75%;
+            top: 40%;
+        }
+        .game2-text{
+            width: 250px;
+            height: 147px;
+            background: white;
+            position: absolute;
+            top: 97%;
+        }
+        .game-img{
+            overflow: hidden;
+        }
+        .game1-img{
+            overflow: hidden;
+        }
+        .game2-img{
+            overflow: hidden;
+        }
+        .cs-box img:hover{ 
+            transform: scale(1.1);
+        }
+        .tjgame-img{
+            position: relative;
+        }
+        .tjgame-text{
+            position: absolute;
+            top: 20%;
+        }
+        .tjgame-text div{
+            margin: 30px;
+        }
+        .tjgame-name{
+            font-size: 36px;
+        }
+        .tjgame-title{
+            width: 500px;
+        }
+        .tjgame-box{
+            width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .swiper-pagination2{
+            position: absolute;
+            top: 0;
+            left: 10%;
+        }
+        .dht{
+            position: absolute;
+            width: 51px;
+            height: 92px;
+            border-radius: 50%;
+            background-color: white;
+            top: 50%;
+            right: 3%;
+            position: fixed;
+            z-index: 111;
+        }
+        .dht img{
+            border-radius: 50%;
+        }
+        .swiper{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .bottom{
+            width: 100%;
+            height: 250px;
+            background: #191919;
+            color:rgba(255,255,255,.4);
+            position: relative;
+        }
+        .bottom img{
+            width: 50px;
+        }
+        .zzs{
+            position: absolute;
+            width: 1200px;
+            top: 50%;
+            left: 15%;
+            font-size: 12px;
+        }
+        .zzs>div{
+            float: left;
+            margin-right: 10px;
+            padding-right: 10px;
+            border-right: #8a8a8a 2px solid;
+        }
+        .font>div{
+            float: left;
+        }
+        .pc{
+            position: absolute;
+            top: 20%;
+            left: 20%;
+        }
+        .wb{
+            position: absolute;
+            top: 20%;
+            left: 40%;
+        }
+        .wx{
+            position: absolute;
+            top: 20%;
+            left: 60%;
+        }
+        .font img{
+            position: absolute;
+        }
+        .font img:hover{
+            cursor: pointer;
+        }
+        .bh{
+            position: absolute;
+            font-size: 12px;
+            left: 35%;
+            top: 60%;
+        }
+        .zzs div:hover{
+            cursor: pointer;
+            color: #909090;
+        }
+        .tip{
+            position: absolute;
+            font-size: 12px;
+            left: 45%;
+            top: 70%;
+        }
+        .jrzq{
+            position: absolute;
+            top: 28%;
+            right: 7%;
+            width: 180px;
+            height: 40px;
+            background: #ffe082;
+            color: black;
+            border-radius: 5%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 900;
+        }
+        .jrzq:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="nav">
+            <div class="left">
+                <img src="image/logo.png">
+            </div>
+            <div class="center">
+                <div>商店</div>
+                <div>客户端</div>
+                <div>移动端</div>
+                <div>已计划</div>
+                <div>帮助反馈</div>
+            </div>
+            <div class="right">
+                <div>开发者平台</div>
+                <div class="download">下载客户端</div>
+                <div>登录</div>
+            </div>
+        </div>
+        <div class="nav1">
+            <div class="left">
+                <div><span>精选</span></div>
+                <div><span>单机</span></div>
+                <div><span>网游</span></div>
+                <div><span>测试专区</span></div>
+                <div><span>所有内容</span></div>
+            </div>
+            <div class="right">
+                <div class="tanke">驾驶中国坦克</div>
+                <div class="input_div">
+                    <input placeholder="不可思议的皇冠">
+                    <div><img width="20" src="image/search.png"></div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper" @mouseover="mover" @mouseout="mout">
+            <div class="item_img">
+                <div v-if="showImg.type=='img'">
+                    <img v-bind:src="showImg.src">
+                </div>
+                <div v-else>
+                    <video autoplay muted loop v-bind:src="showImg.src"></video>
+                </div>
+            </div>
+            <div class="swiper_title">
+                <div v-for="(item,index) in imgs" @mousemove="mmove(index)">
+                    {{item.title}}
+                </div>
+            </div>
+        </div>
+        <div class="nav1-title"  ref = 'newContent'>新内容发布</div>
+        <div class="content">
+            <div class="swiper-wrapper">
+                <div class="content_item swiper-slide" v-for="(item,index) in newLists">
+                    <img class="content_img" v-bind:src="item.src">
+                    <div class="content_box">
+                        <div>{{item.name}}</div>
+                        <h3>{{item.title}}</h3>
+                        <p>{{item.type}}</p>
+                        <div class="content_btn">
+                            <div>关注</div>
+                            <div>游戏详情</div>
+                        </div>
+                    </div>
+                    <div class="content_p">
+                        <div class="content_swiper">
+                            <div class="swiper-wrapper">
+                                <img class="swiper-slide" v-for="item1 in item.child.imgs" v-bind:src="item1">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="swiper-scrollbar"></div>
+            <div class="swiper-button-prev"></div>
+            <!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
+            <div class="swiper-button-next"></div>
+            <!--右箭头。如果放置在swiper-container外面，需要自定义样式。-->
+        </div>
+        <div class="phb-box">
+            <div class="phb-top">
+                <div style="color: black;margin: 20px;font-size: 36px;">排行榜</div>
+            <!--<li style="font-size: 24px;font-weight: 600;display: inline;line-height: 50%;border-bottom: #eee 2px solid;">排行榜</li>
+                <li>火爆</li>
+                <li>热销</li>
+                <li>最新</li>
+                <li>口碑</li>
+                <li>关注</li>
+                <li>折扣</li>
+                <li>更新</li>
+                <li>热度</li>
+                <li>测试</li>-->
+            </div>
+            <div class="phb">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="item in phbList">
+                        <div class="phb-title">{{item.title}}</div>
+                        <div class="phb-game" v-for="item1 in item.arr">
+                            <div class="phb-num">{{item1.num}}</div>
+                            <div><img v-bind:src="item1.src"></div>
+                            <div class="phb-title1">{{item1.title}}</div>
+                            <div class="phb-price">{{item1.price}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-prev1"> <img src="image/phb/左.png"> </div>
+                <!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
+                <div class="swiper-button-next1"> <img src="image/phb/右.png"> </div>
+                <!--右箭头。如果放置在swiper-container外面，需要自定义样式。-->
+            </div>
+            <div class="swiper-pagination1"></div>
+        </div>
+        <div class="cs">
+            <div class="cs-title" style="color: black;margin: 20px;font-size: 36px;">测试专区</div>
+            <div class="cs-img"><img style="width: 1200px;height: 450px;" src="image/cs/背景.jpg"></div>
+            <div class="cs-box">
+                <div class="cs-title1">最新玩法，免费抢先体验</div>
+                <div class="cs-title2">专区内的游戏均为测试版本，无任何商业化，我们每天会限量发放体验资格，期待您的参与，相信有潜力的游戏会给您更多惊喜！</div>
+                <div class="jrzq">进入专区</div>
+                <div class="game-box">
+                    <div class="cs-game">
+                        <div class="game-img" style="height: 286.66px;">
+                            <img src="image/cs/深暗森林.jpg" style="width: 200px;
+                            height: 286.66px;">
+                        </div>
+                        <div class="game-text" style="color: black;">
+                            <p style="margin: 15px;font-weight: 900;color: #3c3c3c;">深暗森林</p>
+                            <p style="color: #757575;margin-left: 15px;font-size: 10px;margin-bottom: 5px;">期待值:8.6/10 (119条评测)</p>
+                            <p style="color: #757575;margin-left: 15px;font-size: 10px;">科幻/太空/对战平台/经营模拟器</p>
+                            <div style="width: 270px;height: 130px;background-color: #f4f4f4;margin: 15px;"><p style="color: #757575;margin:15px;font-size: 10px;">游戏文化展已经结束啦，感谢一直支持我们游戏《异世界苦手物语》的小伙伴，我们会继续努力哒！</p></div>
+                            <div style="width: 270px;height: 20px;background-color: #ffca28;margin: 10px;border-radius: 20%;text-align: center;"><span style="font-size: 12px;">953/1000已抢号</span></div>
+                        </div>
+                    </div>
+                    <div class="cs-game1">
+                        <div class="game1-img">
+                            <img src="image/cs/苦手物语.jpg" style="width: 250px;transition: all .15s ease-out;">
+                        </div>
+                        <div class="game1-text" style="color: black;">
+                            <p style="margin: 10px;margin-left:15px;font-weight: 900;color: #3c3c3c;">苦手物语</p>
+                            <p style="color: #757575;margin-left: 15px;font-size: 10px;margin-bottom: 5px;">期待值:8.6/10 (119条评测)</p>
+                            <p style="color: #757575;margin-left: 15px;font-size: 10px;">科幻/太空/对战平台/经营模拟器</p>
+                            <div style="width: 220px;height: 30px;position: absolute;bottom: 5%;left: 5%;border-top: #757575 1px solid;">
+                                <div style="width: 200px;height: 20px;background-color: #f4f4f4;margin: 10px;border-radius: 20%;text-align: center;"><span style="font-size: 12px;">66/20000已抢号</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cs-game2">
+                        <div class="game2-img">
+                            <img src="image/cs/SA.jpg" style="width: 250px;">
+                        </div>
+                        <div class="game2-text" style="color:black">
+                            <p style="margin: 10px;margin-left:15px;font-weight: 900;color: #3c3c3c;">超级巴基球</p>
+                            <p style="color: #757575;margin-left: 15px;font-size: 10px;margin-bottom: 5px;">期待值:8.6/10 (119条评测)</p>
+                            <p style="color: #757575;margin-left: 15px;font-size: 10px;">科幻/太空/对战平台/经营模拟器</p>
+                            <div style="width: 220px;height: 30px;position: absolute;bottom: 5%;left: 5%;border-top: #757575 1px solid;">
+                                <div style="width: 200px;height: 20px;background-color: #f4f4f4;margin: 10px;border-radius: 20%;text-align: center;"><span style="font-size: 12px;">66/20000已抢号</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+        <div class="tjgame-box">
+            <div style="color: black;margin: 20px;font-size: 36px;">蛋蛋君推荐游戏</div>
+            <div class="swiper-pagination2" style="left: 25%;top: 3%;"></div>
+            <div class="swiper-wrapper">
+                <div class=" swiper-slide tjgame" v-for="item in tjgame">
+                    <div class="tjgame-img">
+                        <img v-bind:src="item.src">
+                    </div>
+                    <div class="tjgame-text">
+                        <div class="tjgame-name">{{item.name}}</div>
+                        <div class="tjgame-title">{{item.title}}</div>
+                        <div class="tjgame-desc">
+                            <img v-for="item1 in item.child.desc" v-bind:src="item1">
+                        </div>
+                    </div>       
+                </div>
+            </div>
+        </div>
+        <div class="dht">
+            <div @click="gotoTop"><img src="image/dht2.png"></div>
+            <div @click="gotoNew"><img src="image/dht1.png"></div>
+        </div>
+        <div class="bottom">
+            <div class="font">
+                <div class="pc"><span>下载客户端:&nbsp;&nbsp;&nbsp;</span><img src="image/bottom/Windows.png"></div>
+                <div class="wb"><span>官方渠道:&nbsp;&nbsp;&nbsp;</span><img src="image/bottom/weibo.png"></div>
+                <div class="wx"><span>友情链接:&nbsp;&nbsp;&nbsp;</span><img src="image/bottom/weixin.png"></div>
+            </div>
+            
+            <div class="zzs">
+                <div>关于腾讯</div>
+                <div>About Tencent</div>
+                <div>服务条款</div>
+                <div>软件许可及服务协议</div>
+                <div>隐私保护指引</div>
+                <div>儿童隐私保护指引</div>
+                <div>侵权通知</div>
+                <div>广告服务</div>
+                <div>腾讯招聘</div>
+                <div>客服中心</div>
+                <div>网站导航</div>
+            </div>
+            <div class="bh">COPYRIGHT © 1998 – 2020 TENCENT. ALL RIGHTS RESERVED.</div>
+            <div class="tip">腾讯公司&nbsp;版权所有</div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    count: 0,
+                    timer: "",
+                    showImg: {
+                        title: "装甲战争",
+                        src: "image/banner.mp4",
+                        type: "video",
+                        desc: "现代坦克大战，高清PVE"
+                    },
+                    imgs: [
+                        {
+                            title: "装甲战争",
+                            src: "image/banner.mp4",
+                            type: "video",
+                            desc: "现代坦克大战，高清PVE"
+                        }, {
+                            title: "枪火重生",
+                            src: "image/banner1.jpeg",
+                            type: "img",
+                            desc: "限时折扣进行中"
+                        }, {
+                            title: "机友节热门返场",
+                            src: "image/banner2.jpeg",
+                            type: "img",
+                            desc: "限时折扣进行中"
+                        }, {
+                            title: "星际战甲",
+                            src: "image/banner3.jpeg",
+                            type: "img",
+                            desc: "限时折扣进行中"
+                        }, {
+                            title: "掌上WeGame",
+                            src: "image/banner4.jpeg",
+                            type: "img",
+                            desc: "限时折扣进行中"
+                        }, {
+                            title: "QQ炫舞",
+                            src: "image/banner5.jpeg",
+                            type: "img",
+                            desc: "限时折扣进行中"
+                        }, {
+                            title: "铁甲雄兵",
+                            src: "image/banner6.png",
+                            type: "img",
+                            desc: "限时折扣进行中"
+                        }
+                    ],
+                    newLists: [
+                        {
+                            name: "铁甲雄兵",
+                            src: "image/new/1.jpeg",
+                            title: "梅丽桑德天罚皮肤登场",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/1-1.jpeg",
+                                    "image/new/1-2.jpeg",
+                                    "image/new/1-3.jpeg",
+                                ]
+                            }
+                        },
+                        {
+                            name: "龙之谷",
+                            src: "image/new/2.jpeg",
+                            title: "主城翻新 浪客重置",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/2-1.jpeg",
+                                    "image/new/2-2.jpeg",
+                                    "image/new/2-3.jpeg",
+                                    "image/new/2-4.jpeg",
+                                    "image/new/2-5.jpeg",
+                                ]
+                            }
+                        },
+                        {
+                            name: "龙之谷",
+                            src: "image/new/3.jpeg",
+                            title: "主城翻新 浪客重置",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/2-1.jpeg",
+                                    "image/new/2-2.jpeg",
+                                    "image/new/2-3.jpeg",
+                                    "image/new/2-4.jpeg",
+                                    "image/new/2-5.jpeg",
+                                ]
+                            }
+                        },
+                        {
+                            name: "龙之谷",
+                            src: "image/new/4.jpeg",
+                            title: "主城翻新 浪客重置",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/2-1.jpeg",
+                                    "image/new/2-2.jpeg",
+                                    "image/new/2-3.jpeg",
+                                    "image/new/2-4.jpeg",
+                                    "image/new/2-5.jpeg",
+                                ]
+                            }
+                        },
+                        {
+                            name: "龙之谷",
+                            src: "image/new/5.jpeg",
+                            title: "主城翻新 浪客重置",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/2-1.jpeg",
+                                    "image/new/2-2.jpeg",
+                                    "image/new/2-3.jpeg",
+                                    "image/new/2-4.jpeg",
+                                    "image/new/2-5.jpeg",
+                                ]
+                            }
+                        },
+                        {
+                            name: "龙之谷",
+                            src: "image/new/6.jpeg",
+                            title: "主城翻新 浪客重置",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/2-1.jpeg",
+                                    "image/new/2-2.jpeg",
+                                    "image/new/2-3.jpeg",
+                                    "image/new/2-4.jpeg",
+                                    "image/new/2-5.jpeg",
+                                ]
+                            }
+                        },
+                        {
+                            name: "龙之谷",
+                            src: "image/new/7.jpeg",
+                            title: "主城翻新 浪客重置",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/2-1.jpeg",
+                                    "image/new/2-2.jpeg",
+                                    "image/new/2-3.jpeg",
+                                    "image/new/2-4.jpeg",
+                                    "image/new/2-5.jpeg",
+                                ]
+                            }
+                        },
+                        {
+                            name: "龙之谷",
+                            src: "image/new/8.jpeg",
+                            title: "主城翻新 浪客重置",
+                            type: "版本活动",
+                            child: {
+                                imgs: [
+                                    "image/new/2-1.jpeg",
+                                    "image/new/2-2.jpeg",
+                                    "image/new/2-3.jpeg",
+                                    "image/new/2-4.jpeg",
+                                    "image/new/2-5.jpeg",
+                                ]
+                            }
+                        }
+                    ],
+                    phbList:[
+                        {
+                            title:"火爆新品 >",
+                            arr:[
+                                {
+                                    num:"🏆",
+                                    src:"image/phb/1.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"时长付费"
+                                },
+                                {
+                                    num:2,
+                                    src:"image/phb/2.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:3,
+                                    src:"image/phb/3.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:4,
+                                    src:"image/phb/4.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:5,
+                                    src:"image/phb/5.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:6,
+                                    src:"image/phb/6.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:7,
+                                    src:"image/phb/7.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                            ]
+                        },
+                        {
+                            title:"本周热销 >",
+                            arr:[
+                                {
+                                    num:"🏆",
+                                    src:"image/phb/1.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"时长付费"
+                                },
+                                {
+                                    num:2,
+                                    src:"image/phb/2.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:3,
+                                    src:"image/phb/3.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:4,
+                                    src:"image/phb/4.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:5,
+                                    src:"image/phb/5.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:6,
+                                    src:"image/phb/6.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:7,
+                                    src:"image/phb/7.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                            ]
+                        },
+                        {
+                            title:"游戏上架 >",
+                            arr:[
+                                {
+                                    num:"🏆",
+                                    src:"image/phb/1.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"时长付费"
+                                },
+                                {
+                                    num:2,
+                                    src:"image/phb/2.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:3,
+                                    src:"image/phb/3.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:4,
+                                    src:"image/phb/4.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:5,
+                                    src:"image/phb/5.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:6,
+                                    src:"image/phb/6.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:7,
+                                    src:"image/phb/7.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                            ]
+                        },
+                        {
+                            title:"口碑佳作 >",
+                            arr:[
+                                {
+                                    num:"🏆",
+                                    src:"image/phb/1.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"时长付费"
+                                },
+                                {
+                                    num:2,
+                                    src:"image/phb/2.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:3,
+                                    src:"image/phb/3.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:4,
+                                    src:"image/phb/4.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:5,
+                                    src:"image/phb/5.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:6,
+                                    src:"image/phb/6.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:7,
+                                    src:"image/phb/7.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                            ]
+                        },
+                        {
+                            title:"最多关注 >",
+                            arr:[
+                                {
+                                    num:"🏆",
+                                    src:"image/phb/1.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"时长付费"
+                                },
+                                {
+                                    num:2,
+                                    src:"image/phb/2.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:3,
+                                    src:"image/phb/3.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:4,
+                                    src:"image/phb/4.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:5,
+                                    src:"image/phb/5.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:6,
+                                    src:"image/phb/6.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:7,
+                                    src:"image/phb/7.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                            ]
+                        },
+                        {
+                            title:"折扣促销 >",
+                            arr:[
+                                {
+                                    num:"🏆",
+                                    src:"image/phb/1.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"时长付费"
+                                },
+                                {
+                                    num:2,
+                                    src:"image/phb/2.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:3,
+                                    src:"image/phb/3.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:4,
+                                    src:"image/phb/4.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:5,
+                                    src:"image/phb/5.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:6,
+                                    src:"image/phb/6.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                                {
+                                    num:7,
+                                    src:"image/phb/7.png",
+                                    title:"热血传奇怀旧版",
+                                    price:"免费"
+                                },
+                            ]
+                        }
+                    ],
+                    tjgame:[
+                        {   
+                            src:"image/tjgame/tjgame1.png",
+                            name:"畅谈画风有特色的国产单机",
+                            title:"在过去国产单机游戏的黄金时期，曾经出现过不少画风相当优秀的作品，可圈可点的美术风格，赢得不少玩家的关注。今天我们就一起来回顾下这些经典作品吧！",
+                            child: {
+                                desc: [
+                                    "image/phb/1.png",
+                                    "image/phb/2.png",
+                                    "image/phb/3.png",
+                                ]
+                            }
+                        },
+                        {   
+                            src:"image/tjgame/tjgame2.png",
+                            name:"畅谈画风有特色的国产单机",
+                            title:"在过去国产单机游戏的黄金时期，曾经出现过不少画风相当优秀的作品，可圈可点的美术风格，赢得不少玩家的关注。今天我们就一起来回顾下这些经典作品吧！",
+                            child: {
+                                desc: [
+                                    "image/phb/1.png",
+                                    "image/phb/2.png",
+                                    "image/phb/3.png",
+                                ]
+                            }
+                        },
+                        {   
+                            src:"image/tjgame/tjgame3.png",
+                            name:"畅谈画风有特色的国产单机",
+                            title:"在过去国产单机游戏的黄金时期，曾经出现过不少画风相当优秀的作品，可圈可点的美术风格，赢得不少玩家的关注。今天我们就一起来回顾下这些经典作品吧！",
+                            child: {
+                                desc: [
+                                    "image/phb/1.png",
+                                    "image/phb/2.png",
+                                    "image/phb/3.png",
+                                ]
+                            }
+                        },
+                        {   
+                            src:"image/tjgame/tjgame4.png",
+                            name:"畅谈画风有特色的国产单机",
+                            title:"在过去国产单机游戏的黄金时期，曾经出现过不少画风相当优秀的作品，可圈可点的美术风格，赢得不少玩家的关注。今天我们就一起来回顾下这些经典作品吧！",
+                            child: {
+                                desc: [
+                                    "image/phb/1.png",
+                                    "image/phb/2.png",
+                                    "image/phb/3.png",
+                                ]
+                            }
+                        },
+                        {   
+                            src:"image/tjgame/tjgame5.png",
+                            name:"畅谈画风有特色的国产单机",
+                            title:"在过去国产单机游戏的黄金时期，曾经出现过不少画风相当优秀的作品，可圈可点的美术风格，赢得不少玩家的关注。今天我们就一起来回顾下这些经典作品吧！",
+                            child: {
+                                desc: [
+                                    "image/phb/1.png",
+                                    "image/phb/2.png",
+                                    "image/phb/3.png",
+                                ]
+                            }
+                        },
+                    ]
+                }
+            },
+            methods: {
+                changeImg() {
+                    if (this.count >= 6) {
+                        this.count = 0
+
+                    } else {
+                        this.count++
+                    }
+                    this.showImg = this.imgs[this.count]
+
+                },
+                //鼠标移入清楚定时器
+                mover() {
+                    clearInterval(this.timer)
+                },
+                //鼠标移移出添加定时器
+                mout() {
+                    this.timer = setInterval(this.changeImg, 3000)
+                },
+                //鼠标在标题移动改变显示的图片，并赋值给count叫他从移入的这张图开始变换
+                mmove(index) {
+                    this.showImg = this.imgs[index]
+                    this.count = index
+                },
+                gotoTop(){
+                    console.log
+                    //滚动条的位置document.documentElement.scrollTop
+                    document.documentElement.scrollTop = document.body.scrollTop= 0
+                },
+                gotoNew(){
+                   var top =  this.$refs.newContent.offsetTop - 50;
+                   var timer = setInterval(function(){
+                        var now = document.documentElement.scrollTop;
+                        document.documentElement.scrollTop = document.body.scrollTop=now - 5
+                        if(now<=top){
+                            clearInterval(timer)
+                        }
+                   },3)
+                }
+            },
+            mounted() {
+
+                this.timer = setInterval(this.changeImg, 3000)
+                //this.changeImg()
+                var swiper = new Swiper('.content_swiper', {
+                    autoplay: true,
+                    loop: true
+                });
+                var mySwiper = new Swiper('.content', {
+                    slidesPerView: 'auto',
+                    scrollbar: {
+                        el: '.swiper-scrollbar',
+                        draggable: true,
+                        dragSize: 50
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                })
+                var swiper1 = new Swiper('.phb',{
+                    slidesPerView:3,
+                    loop:true,
+                    spaceBetween : 40,
+                    navigation: {
+                        nextEl: '.swiper-button-next1',
+                        prevEl: '.swiper-button-prev1',
+                    },
+                    pagination: {
+                    el: '.swiper-pagination1',
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                    switch(index){
+                        case 0:text='火爆';break;
+                        case 1:text='销量';break;
+                        case 2:text='最新';break;
+                        case 3:text='口碑';break;
+                        case 4:text='关注';break;
+                        case 5:text='折扣';break;
+                        case 6:text='最新';break;
+                        case 7:text='热度';break;
+                        case 8:text='测试';break;
+                    }
+                    return '<span class="' + className + '">' + text + '</span>';
+                    },
+                 },
+                })
+                var swiper2 = new Swiper('.tjgame-box', {
+                    pagination: {
+                    el: '.swiper-pagination2',
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                    switch(index){
+                        case 0:text='第十四期';break;
+                        case 1:text='第十三期';break;
+                        case 2:text='第十二期';break;
+                        case 3:text='第十一期';break;
+                        case 4:text='第十期';break;
+                    }
+                    return '<span class="' + className + '">' + text + '</span>';
+                    },
+                 },
+                });  
+            }
+        })
+    </script>
+</body>
+
+</html>
